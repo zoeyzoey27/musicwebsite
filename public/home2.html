@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Website</title>
+    <link rel="stylesheet" type="text/css" href="./images/style.css" />
+    <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="./js/data.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"rel="stylesheet">
+    
+    
+</head>
+<body>
+    <div class="container">
+        <header>
+           <img src="./images/logo.png" class="logo">
+            <h1>WELCOME TO GAaMA</h1>
+            <p>Music is a part of every known society, past and present, and is common to all human cultures across the globe.
+               <br>
+               The emotions caused by music, the attitudes of its composers and players, and the venues it is played can also 
+               vary from time to time and place to place. The music one person loves might be painful for another to listen to, and vice versa!</p>
+             <nav>
+                 <ul class="left">
+                     <li> <a href="">Recently added</a> </li>
+                     <li> <a href="">Top Pop</a> </li>
+                     <li> <a href="">Best of the year</a> </li>
+                     <li> <a href="">Highly recommand</a> </li>
+                 </ul>
+                 <ul class="right">
+                   <li> <a href="">About</a> </li>
+                   <li> <a href="">Request</a> </li>
+                   <li> <a href="">Contact</a> </li>
+                   <li class="autoplay-btn"> 
+                       <a href="">
+                           <label>
+                               <h5>AUTOPLAY</h5>
+                               <input type ="checkbox">
+                               <span></span>
+                           </label>
+                       </a> 
+                   </li>
+               </ul>
+             </nav>   
+        </header>
+        <div class = "wrapper">
+        <div class="body-content">
+            <div class="title">
+                <span></span>
+                <span></span>
+                <span>TITLE</span>
+                <span>ARTIST</span>
+                <span>GENRE</span>
+                <span>DURATON</span>
+                <span></span>
+            </div>
+            <div class="list">
+
+            </div>
+        </div>
+    </div>
+    <div class="page-btn">
+        <a href="./index.html"><span>1</span></a>
+        <a href="./home2.html"><span>2</span></a>
+        <a href="./home3.html"><span>3</span></a>
+        <a href="./home4.html"><span>4</span></a>
+        <span>&#8594;</span>
+</div>
+</div>
+    <div class="footer">
+        <div class="container-footer">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3> Download Our App</h3>
+                    <p>Download App for Android and IOS mobile phone</p>
+                    <div class="app-logo">
+                        <img src="./images/play-store.png">
+                        <img src="./images/app-store.png">
+                    </div>
+                </div>
+                <div class="footer-col-2">
+                    <img src="./images/logo.png">
+                    <p>The music is not in the notes, but in the silence in between.</p>
+                </div>
+                <div class="footer-col-3">
+                    <h3> Useful Links </h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog Post</li>
+                        <li>Return Policy</li>
+                        <li>Join Affiliate</li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3> Follow us </h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Instagram</li>
+                        <li>Twitter</li>
+                        <li>Youtube</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright 2021</p>
+        </div>
+    </div>
+    
+    <script>
+        $(document).ready(function (){
+            var list = $(".list");
+            var list_block;
+            var i=0;
+            for (var key in song_list){
+                i++;
+                if (i>5) {
+                list_block=$('<div class="list_block"></div>');
+                list.append(list_block);
+                list_block.append('<span class="play-btn"> <img class="playbtn" src="./images/play-btn.png"> <img class ="pausebtn" src="./images/pause-btn.png"></span>');
+                list_block.append('<img class="img-song" src="./images/imagesong'+ i +'.jpg" width="100px">');
+                list_block.append('<span class="song-title">'+song_list[key].title+'</span>');
+                list_block.append('<span class="song-artist">'+song_list[key].artist+'</span>');
+                list_block.append('<span class="song-genre">'+song_list[key].genre+'</span>');
+                list_block.append('<span class="song-duration">'+song_list[key].duration+'</span>');
+                list_block.append('<span class="beat-animation"><ul><li></li><li></li><li></li><li></li><li></li><li></li></ul></span>'); 
+                list_block.append('<span class="track"><audio id="audio" controls ><source src="./audio/'+song_list[key].track+'" type="audio/mp3"></audio></span>'); 
+                list_block.append('<span class="download-btn"><a target="_blank" href="./audio/'+song_list[key].track+'"><i class="fa fa-download"></i></a> </span>'); 
+                }
+                if (i==10) break;
+                
+            }
+            $(".list_block .play-btn .playbtn").on('click',function(current){
+               $(this).parent().find(".playbtn").css("display","none");
+               $(this).parent().find(".pausebtn").css("display","inline-block");
+               $(".playbtn").not(this).parent().find(".pausebtn").css("display","none");
+               $(".playbtn").not(this).parent().find(".playbtn").css("display","inline-block");
+
+               $(this).parent().parent().addClass("isPlaying");
+               $(".playbtn").not(this).parent().parent().removeClass("isPlaying");
+
+               $(this).parent().parent().find(".beat-animation ul li").css("animation-play-state","running").css("opacity","1");
+               $(".playbtn").not(this).parent().parent().find(".beat-animation ul li").css("animation-play-state","paused").css("opacity","0");
+               
+               $(audio).each(function(e){
+                    if (e != current.currentTarget){
+                        $(this)[0].pause();
+                    }   
+               });
+
+               $(this).parent().parent().find(".track audio")[0].play();
+              });
+              $(".list_block .play-btn .pausebtn").on('click',function(){
+                  $(this).parent().find(".pausebtn").css("display","none");
+                  $(this).parent().find(".playbtn").css("display","inline-block");
+
+                  $(this).parent().parent().find(".beat-animation ul li").css("animation-play-state","paused");
+                  $(this).parent().parent().find(".track audio")[0].pause();
+               });
+
+               $(".autoplay-btn input").on('change',function(){
+                   if ($(this).is(":checked")){
+                       $("audio").on('ended',function(){
+                           $(this).parent().parent().next().find(".track audio")[0].play();
+                           $(".list_block").removeClass("isPlaying");
+                           $(this).parent().parent().next().addClass("isPlaying");
+                           $(this).parent().parent().find(".beat-animation ul li").css("animation-play-state","paused").css("opacity","0");
+                           $(this).parent().parent().next().find(".beat-animation ul li").css("animation-play-state","running").css("opacity","1");
+                           $(this).parent().parent().next().find(".playbtn").css("display","none");
+                           $(this).parent().parent().next().find(".pausebtn").css("display","inline-block");
+                       });
+                   }
+                   else {
+                       $("audio").on('ended',function(){
+                           $(".pausebtn").css("display","none");
+                           $(".playbtn").css("display","inline-block");
+                           $(".beat-animation ul li").css("animation-play-state","paused").css("opacity","0");
+                       });
+                   }
+               }).change();
+        });
+    </script>
+</body>
+</html>
